@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NIBS - Nuffield Interactive Book System</title>
+  <meta name="description" content="Accessible interactive book reader system for students with motor disabilities">
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <h1>NIBS - Nuffield Interactive Book System</h1>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button id="browse-btn" class="nav-btn" aria-describedby="browse-desc">Browse</button>
+        <button id="search-btn" class="nav-btn" aria-describedby="search-desc">Search</button>
+        <button id="snippets-btn" class="nav-btn" aria-describedby="snippets-desc">Snippets</button>
+        <button id="notes-btn" class="nav-btn" aria-describedby="notes-desc">Notes</button>
+      </nav>
+    </header>
+
+    <main class="app-main">
+      <!-- Structure Browser Panel -->
+      <aside class="structure-panel" id="structure-panel">
+        <h2>Structure Browser</h2>
+        <div class="browser-controls">
+          <label for="section-select">Section:</label>
+          <select id="section-select" aria-label="Navigate to section">
+            <option value="">Select a section...</option>
+          </select>
+          
+          <label for="subsection-select">Subsection:</label>
+          <select id="subsection-select" aria-label="Navigate to subsection">
+            <option value="">Select a subsection...</option>
+          </select>
+        </div>
+        
+        <!-- Structure Map -->
+        <div class="structure-map" id="structure-map">
+          <h3>Document Map</h3>
+          <div class="map-content" role="tree" aria-label="Document structure">
+            <!-- Structure visualization will be populated here -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <section class="content-area">
+        <!-- Text Display -->
+        <div class="text-display" id="text-display" role="main" aria-live="polite">
+          <div class="text-controls">
+            <button id="text-size-decrease" aria-label="Decrease text size">A-</button>
+            <button id="text-size-increase" aria-label="Increase text size">A+</button>
+            <button id="highlight-mode" aria-label="Toggle highlight mode">🖍️</button>
+          </div>
+          
+          <div class="text-content" id="text-content">
+            <h2>Welcome to NIBS</h2>
+            <p>The Nuffield Interactive Book System (NIBS) is designed to provide accessible electronic reading for students with motor disabilities.</p>
+            <p>Use the structure browser to navigate through documents, create snippets of important text, and build your own study materials.</p>
+          </div>
+        </div>
+
+        <!-- Search Panel -->
+        <div class="search-panel hidden" id="search-panel">
+          <h3>Search</h3>
+          <div class="search-controls">
+            <input type="search" id="search-input" placeholder="Search for words or phrases..." aria-label="Search documents">
+            <button id="search-execute">Search</button>
+          </div>
+          <div class="search-results" id="search-results" role="region" aria-live="polite">
+            <!-- Search results will appear here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Notes/Snippets Panel -->
+      <aside class="notes-panel" id="notes-panel">
+        <div class="panel-tabs" role="tablist">
+          <button id="snippets-tab" class="tab-btn active" role="tab" aria-controls="snippets-view" tabindex="0">Snippets</button>
+          <button id="notes-tab" class="tab-btn" role="tab" aria-controls="notes-view" tabindex="-1">Notes</button>
+        </div>
+        
+        <!-- Snippets View -->
+        <div class="snippets-view" id="snippets-view">
+          <h3>Your Snippets</h3>
+          <div class="snippets-list" id="snippets-list" role="list">
+            <!-- User snippets will appear here -->
+          </div>
+          <button id="create-document-btn" class="action-btn">Create Document from Snippets</button>
+        </div>
+        
+        <!-- Notes View -->
+        <div class="notes-view hidden" id="notes-view">
+          <h3>Notes</h3>
+          <textarea id="notes-editor" placeholder="Write your notes here..." aria-label="Notes editor"></textarea>
+          <button id="save-notes-btn" class="action-btn">Save Notes</button>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Accessibility Status -->
+    <div id="status-announcer" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+  </div>
+  
+  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="/src/content-loader.js"></script>
+</body>
+</html>

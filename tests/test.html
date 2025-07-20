@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NIBS Test Suite - Accessibility Testing</title>
+  <meta name="description" content="Comprehensive test suite for the NIBS accessibility features">
+  <link rel="stylesheet" href="/src/style.css" />
+  <style>
+    /* Additional styles for testing interface */
+    .test-controls {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      background: #2c3e50;
+      color: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+      z-index: 1000;
+      max-width: 250px;
+    }
+    
+    .test-controls h3 {
+      margin-top: 0;
+      color: #ecf0f1;
+    }
+    
+    .test-controls button {
+      background: #3498db;
+      color: white;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      cursor: pointer;
+      margin: 0.25rem;
+      font-size: 0.9rem;
+    }
+    
+    .test-controls button:hover {
+      background: #2980b9;
+    }
+    
+    .test-content-selector {
+      margin: 1rem 0;
+    }
+    
+    .test-content-selector select {
+      width: 100%;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 4px;
+    }
+    
+    .test-status {
+      position: fixed;
+      bottom: 20px;
+      left: 20px;
+      background: #27ae60;
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 4px;
+      font-weight: bold;
+      z-index: 1000;
+      display: none;
+    }
+    
+    .test-log {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      width: 300px;
+      height: 200px;
+      background: #2c3e50;
+      color: #ecf0f1;
+      border-radius: 8px;
+      padding: 1rem;
+      overflow-y: auto;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      z-index: 1000;
+      display: none;
+    }
+    
+    .accessibility-indicator {
+      position: fixed;
+      top: 50%;
+      left: 0;
+      transform: translateY(-50%);
+      background: #e74c3c;
+      color: white;
+      padding: 0.5rem;
+      writing-mode: vertical-rl;
+      text-orientation: mixed;
+      border-radius: 0 4px 4px 0;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <!-- Test Controls Panel -->
+  <div class="test-controls">
+    <h3>🧪 NIBS Test Suite</h3>
+    
+    <div class="test-content-selector">
+      <label for="content-select">Test Content:</label>
+      <select id="content-select">
+        <option value="default">Default Content</option>
+        <option value="alice-wonderland">Alice in Wonderland</option>
+        <option value="pride-prejudice">Pride and Prejudice</option>
+        <option value="metamorphosis">The Metamorphosis</option>
+      </select>
+    </div>
+    
+    <button onclick="runAllTests()">Run All Tests</button>
+    <button onclick="runAccessibilityTests()">Accessibility Tests</button>
+    <button onclick="runFunctionalTests()">Functional Tests</button>
+    <button onclick="runPerformanceTests()">Performance Tests</button>
+    <button onclick="loadTestContent()">Load Selected Content</button>
+    <button onclick="toggleTestLog()">Toggle Log</button>
+    <button onclick="exportResults()">Export Results</button>
+  </div>
+
+  <!-- Accessibility Indicator -->
+  <div class="accessibility-indicator" id="a11y-indicator">
+    A11Y MODE
+  </div>
+
+  <!-- Main NIBS Application -->
+  <div id="app">
+    <header class="app-header">
+      <h1>NIBS - Test Environment</h1>
+      <nav class="main-nav" aria-label="Main navigation">
+        <button id="browse-btn" class="nav-btn" aria-describedby="browse-desc">Browse</button>
+        <button id="search-btn" class="nav-btn" aria-describedby="search-desc">Search</button>
+        <button id="snippets-btn" class="nav-btn" aria-describedby="snippets-desc">Snippets</button>
+        <button id="notes-btn" class="nav-btn" aria-describedby="notes-desc">Notes</button>
+      </nav>
+    </header>
+
+    <main class="app-main">
+      <!-- Structure Browser Panel -->
+      <aside class="structure-panel" id="structure-panel">
+        <h2>Structure Browser</h2>
+        <div class="browser-controls">
+          <label for="section-select">Section:</label>
+          <select id="section-select" aria-label="Navigate to section">
+            <option value="">Select a section...</option>
+          </select>
+          
+          <label for="subsection-select">Subsection:</label>
+          <select id="subsection-select" aria-label="Navigate to subsection">
+            <option value="">Select a subsection...</option>
+          </select>
+        </div>
+        
+        <!-- Structure Map -->
+        <div class="structure-map" id="structure-map">
+          <h3>Document Map</h3>
+          <div class="map-content" role="tree" aria-label="Document structure">
+            <!-- Structure visualization will be populated here -->
+          </div>
+        </div>
+      </aside>
+
+      <!-- Main Content Area -->
+      <section class="content-area">
+        <!-- Text Display -->
+        <div class="text-display" id="text-display" role="main" aria-live="polite">
+          <div class="text-controls">
+            <button id="text-size-decrease" aria-label="Decrease text size">A-</button>
+            <button id="text-size-increase" aria-label="Increase text size">A+</button>
+            <button id="highlight-mode" aria-label="Toggle highlight mode">🖍️</button>
+          </div>
+          
+          <div class="text-content" id="text-content">
+            <h2>NIBS Test Environment</h2>
+            <p>Welcome to the NIBS testing environment. This version includes comprehensive test content from Project Gutenberg and automated testing capabilities.</p>
+            <p>Use the test controls panel to run various test suites and load different literary works for testing the system's capabilities.</p>
+            <p><strong>Accessibility Testing:</strong> This environment is specifically designed to test motor disability support, keyboard navigation, and screen reader compatibility.</p>
+            <p><strong>Content Testing:</strong> Load classic literature to test snippet extraction, search functionality, and document creation features.</p>
+          </div>
+        </div>
+
+        <!-- Search Panel -->
+        <div class="search-panel hidden" id="search-panel">
+          <h3>Search</h3>
+          <div class="search-controls">
+            <input type="search" id="search-input" placeholder="Search for words or phrases..." aria-label="Search documents">
+            <button id="search-execute">Search</button>
+          </div>
+          <div class="search-results" id="search-results" role="region" aria-live="polite">
+            <!-- Search results will appear here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Notes/Snippets Panel -->
+      <aside class="notes-panel" id="notes-panel">
+        <div class="panel-tabs" role="tablist">
+          <button id="snippets-tab" class="tab-btn active" role="tab" aria-controls="snippets-view" tabindex="0">Snippets</button>
+          <button id="notes-tab" class="tab-btn" role="tab" aria-controls="notes-view" tabindex="-1">Notes</button>
+        </div>
+        
+        <!-- Snippets View -->
+        <div class="snippets-view" id="snippets-view">
+          <h3>Your Snippets</h3>
+          <div class="snippets-list" id="snippets-list" role="list">
+            <!-- User snippets will appear here -->
+          </div>
+          <button id="create-document-btn" class="action-btn">Create Document from Snippets</button>
+        </div>
+        
+        <!-- Notes View -->
+        <div class="notes-view hidden" id="notes-view">
+          <h3>Notes</h3>
+          <textarea id="notes-editor" placeholder="Write your notes here..." aria-label="Notes editor"></textarea>
+          <button id="save-notes-btn" class="action-btn">Save Notes</button>
+        </div>
+      </aside>
+    </main>
+
+    <!-- Accessibility Status -->
+    <div id="status-announcer" aria-live="assertive" aria-atomic="true" class="sr-only"></div>
+  </div>
+
+  <!-- Test Status Indicator -->
+  <div class="test-status" id="test-status">
+    Ready for testing
+  </div>
+
+  <!-- Test Log -->
+  <div class="test-log" id="test-log">
+    <h4>Test Log</h4>
+    <div id="log-content"></div>
+  </div>
+
+  <!-- Scripts -->
+  <script type="module" src="/src/main.js"></script>
+  <script type="module" src="./test-content.js"></script>
+  <script type="module" src="./test-suite.js"></script>
+  
+  <script>
+    // Test environment specific functions
+    let testSuite = null;
+    let testLog = [];
+
+    function showStatus(message, duration = 3000) {
+      const status = document.getElementById('test-status');
+      status.textContent = message;
+      status.style.display = 'block';
+      setTimeout(() => {
+        status.style.display = 'none';
+      }, duration);
+    }
+
+    function logMessage(message) {
+      testLog.push({
+        timestamp: new Date().toISOString(),
+        message: message
+      });
+      
+      const logContent = document.getElementById('log-content');
+      logContent.innerHTML = testLog
+        .slice(-50) // Keep last 50 messages
+        .map(entry => `[${entry.timestamp.slice(11, 19)}] ${entry.message}`)
+        .join('\n');
+      logContent.scrollTop = logContent.scrollHeight;
+    }
+
+    function toggleTestLog() {
+      const log = document.getElementById('test-log');
+      log.style.display = log.style.display === 'none' ? 'block' : 'none';
+    }
+
+    async function runAllTests() {
+      showStatus('Running all tests...');
+      logMessage('Starting comprehensive test suite');
+      
+      if (!testSuite) {
+        testSuite = new NIBSTestSuite();
+      }
+      
+      await testSuite.runAllTests();
+      showStatus('All tests completed');
+      logMessage('Test suite completed');
+    }
+
+    async function runAccessibilityTests() {
+      showStatus('Running accessibility tests...');
+      logMessage('Starting accessibility tests');
+      
+      if (!testSuite) {
+        testSuite = new NIBSTestSuite();
+        await testSuite.waitForNIBSInit();
+      }
+      
+      await testSuite.testAccessibility();
+      await testSuite.testKeyboardNavigation();
+      showStatus('Accessibility tests completed');
+      logMessage('Accessibility tests completed');
+    }
+
+    async function runFunctionalTests() {
+      showStatus('Running functional tests...');
+      logMessage('Starting functional tests');
+      
+      if (!testSuite) {
+        testSuite = new NIBSTestSuite();
+        await testSuite.waitForNIBSInit();
+      }
+      
+      await testSuite.testNavigation();
+      await testSuite.testSearchFunctionality();
+      await testSuite.testSnippetCreation();
+      await testSuite.testNotesTaking();
+      showStatus('Functional tests completed');
+      logMessage('Functional tests completed');
+    }
+
+    async function runPerformanceTests() {
+      showStatus('Running performance tests...');
+      logMessage('Starting performance tests');
+      
+      const startTime = performance.now();
+      
+      // Test search performance
+      const searchStart = performance.now();
+      document.getElementById('search-input').value = 'accessibility';
+      window.nibsSystem.performSearch();
+      const searchTime = performance.now() - searchStart;
+      
+      // Test navigation performance
+      const navStart = performance.now();
+      const sections = window.nibsSystem.currentDocument.sections;
+      if (sections.length > 0) {
+        window.nibsSystem.displaySection(sections[0].id, sections[0].subsections[0].id);
+      }
+      const navTime = performance.now() - navStart;
+      
+      const totalTime = performance.now() - startTime;
+      
+      logMessage(`Search performance: ${searchTime.toFixed(2)}ms`);
+      logMessage(`Navigation performance: ${navTime.toFixed(2)}ms`);
+      logMessage(`Total performance test time: ${totalTime.toFixed(2)}ms`);
+      
+      showStatus(`Performance tests completed (${totalTime.toFixed(2)}ms)`);
+    }
+
+    async function loadTestContent() {
+      const selector = document.getElementById('content-select');
+      const selectedContent = selector.value;
+      
+      if (selectedContent === 'default') {
+        showStatus('Loading default content...');
+        window.nibsSystem.loadSampleDocument();
+      } else {
+        showStatus(`Loading ${selectedContent}...`);
+        
+        // Import test content
+        const { gutenbergTexts } = await import('./test-content.js');
+        
+        if (gutenbergTexts[selectedContent]) {
+          window.nibsSystem.currentDocument = gutenbergTexts[selectedContent];
+          window.nibsSystem.populateStructureBrowser();
+          window.nibsSystem.buildSearchIndex();
+          
+          // Display first section
+          const firstSection = gutenbergTexts[selectedContent].sections[0];
+          const firstSubsection = firstSection.subsections[0];
+          window.nibsSystem.displaySection(firstSection.id, firstSubsection.id);
+          
+          logMessage(`Loaded content: ${gutenbergTexts[selectedContent].title}`);
+          showStatus('Content loaded successfully');
+        }
+      }
+    }
+
+    function exportResults() {
+      if (!testSuite || !testSuite.testResults.length) {
+        showStatus('No test results to export');
+        return;
+      }
+      
+      const results = {
+        timestamp: new Date().toISOString(),
+        summary: {
+          total: testSuite.testResults.length,
+          passed: testSuite.passedTests,
+          failed: testSuite.failedTests,
+          successRate: ((testSuite.passedTests / testSuite.testResults.length) * 100).toFixed(1)
+        },
+        tests: testSuite.testResults,
+        logs: testLog
+      };
+      
+      const blob = new Blob([JSON.stringify(results, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `nibs-test-results-${new Date().toISOString().slice(0, 10)}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+      
+      showStatus('Test results exported');
+      logMessage('Test results exported to JSON file');
+    }
+
+    // Initialize test environment
+    document.addEventListener('DOMContentLoaded', () => {
+      logMessage('NIBS test environment initialized');
+      showStatus('Test environment ready');
+      
+      // Add keyboard shortcuts for testing
+      document.addEventListener('keydown', (e) => {
+        if (e.ctrlKey && e.shiftKey) {
+          switch (e.key) {
+            case 'T':
+              e.preventDefault();
+              runAllTests();
+              break;
+            case 'A':
+              e.preventDefault();
+              runAccessibilityTests();
+              break;
+            case 'F':
+              e.preventDefault();
+              runFunctionalTests();
+              break;
+            case 'L':
+              e.preventDefault();
+              toggleTestLog();
+              break;
+          }
+        }
+      });
+    });
+  </script>
+</body>
+</html>

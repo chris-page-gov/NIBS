@@ -1,0 +1,22 @@
+{
+  "name": "nibs-interactive-book-system",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Nuffield Interactive Book System - Modern accessibility-focused educational book reader",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node tests/test-runner.js",
+    "test:verbose": "node tests/test-runner.js --verbose",
+    "test:dev": "npm run dev & sleep 3 && node tests/test-runner.js --url=http://localhost:5173/tests/test.html",
+    "test:browser": "vite --open tests/test.html"
+  },
+  "keywords": ["accessibility", "education", "e-books", "assistive-technology"],
+  "author": "Chris Page",
+  "license": "MIT",
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}
