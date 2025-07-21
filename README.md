@@ -1,10 +1,13 @@
 # NIBS - Nuffield Interactive Book System
 
-A modern web implementation of the groundbreaking Nuffield Interactive Book System from the 1990s, designed to provide accessible electronic reading for students with motor disabilities.
+A modern web implementation of the groundbreaking Nuffield Interactive Book System from the 1990s by Claude 4 (initial commit), designed to provide accessible electronic reading for students with motor disabilities.
 
 ## Overview
 
-NIBS was originally developed at Hereward College in the 1990s to address the needs of students with physical disabilities who couldn't easily navigate traditional paper-based study materials. This modern implementation recreates the core functionality using contemporary web technologies while maintaining the original accessibility-first design philosophy.
+NIBS was originally developed at Hereward College in the 1990s to address the needs of students with physical disabilities who couldn't easily navigate traditional paper-based study materials. This modern implementation recreates the core functionality (programmed by AI using Claude's Agentic coder) by using contemporary web technologies while maintaining the original accessibility-first design philosophy.
+
+### Status
+- Currently this is just the output of a test - using the article, could Claude Code recreate the software?
 
 ## Features
 
@@ -126,7 +129,7 @@ The original NIBS was described in the paper "'I can read but I can't turn the p
 **Figure 1: NIBS Text Browser and Search**
 ![Original NIBS showing atmospheric pressure content with search functionality](./docs/figure1-original-nibs-search.png)
 
-**Figure 2: NIBS Snippet Management System**
+**Figure 2: NIBS Snippet Management System** Note the original article graphics did not show the highlighter pen colours!
 ![Original NIBS snippet list interface with color-coded organization](./docs/figure2-original-nibs-snippets.png)
 
 *The original interface demonstrates the sophisticated snippet management system with color-coded categories (Red, Blue, Green, Yellow) and hierarchical text organization that inspired this modern implementation.*
